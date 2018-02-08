@@ -14,9 +14,9 @@ Gem::Specification.new do |s|
     f.match(%r{^(spec|features)/})
   end
 
-  s.test_files    = `git ls-files -- {spec,features}/*`.split("\n")
+  s.test_files = `git ls-files -- {spec,features}/*`.split("\n")
 
-  s.required_ruby_version = '>= 2.1'
+  s.required_ruby_version = '>= 2.2'
 
   s.add_dependency 'arbre',               '>= 1.1.1'
   s.add_dependency 'formtastic',          '~> 3.1'

@@ -105,7 +105,7 @@ module ActiveAdmin
     #     column :name
     #   end
     #
-    def csv(options={}, &block)
+    def csv(options = {}, &block)
       options[:resource] = config
 
       config.csv_builder = CSVBuilder.new(options, &block)
@@ -131,6 +131,8 @@ module ActiveAdmin
     # action.
     #
     def action(set, name, options = {}, &block)
+      warn "Warning: method `#{name}` already defined" if controller.method_defined?(name)
+
       set << ControllerAction.new(name, options)
       title = options.delete(:title)
 
@@ -192,17 +194,17 @@ module ActiveAdmin
       :around, :skip
     ]
     keywords = if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 1
-                       [:action]
-                     else
-                       [:action, :filter]
-                     end
+                 [:action]
+               else
+                 [:action, :filter]
+               end
 
     keywords.each do |name|
-       phases.each do |action|
-        define_method "#{action}_#{name}" do |*args, &block|
-          controller.public_send "#{action}_action", *args, &block
-        end
-      end
+      phases.each do |action|
+       define_method "#{action}_#{name}" do |*args, &block|
+         controller.public_send "#{action}_action", *args, &block
+       end
+     end
     end
 
     # Specify which actions to create in the controller

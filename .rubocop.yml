@@ -2,7 +2,8 @@
 
 AllCops:
   DisabledByDefault: true
-
+  TargetRubyVersion: 2.2
+  
   Exclude:
     - spec/rails/**/*
     - gemfiles/vendor/bundle/**/*
@@ -17,11 +18,59 @@ AllCops:
 
   StyleGuideCopsOnly: false
 
+Lint/EndAlignment:
+  Enabled: true
+
+Layout/CaseIndentation:
+  Enabled: true
+
+Layout/ElseAlignment:
+  Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/EndOfLine:
+  Enabled: true
+
+Layout/ExtraSpacing:
+  Enabled: true
+
+Style/Encoding:
+  EnforcedStyle: never
+  Enabled: true
+
 Style/HashSyntax:
   Enabled: true
 
-Style/TrailingWhitespace:
+Layout/IndentationConsistency:
   Enabled: true
 
-Style/SpaceAfterComma:
+Layout/IndentationWidth:
+  Enabled: true
+
+Style/PredicateName:
+  Enabled: true
+
+  NamePrefixBlacklist:
+    - is_
+    - have_
+
+  NameWhitelist:
+    - has_many
+    - has_many_actions
+
+Layout/TrailingBlankLines:
+  Enabled: true
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Layout/SpaceAfterComma:
+  Enabled: true
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+
+Layout/SpaceInsideParens:
   Enabled: true

@@ -1,5 +1,3 @@
-# Encoding: UTF-8
-
 require 'rails_helper'
 
 RSpec.describe ActiveAdmin::CSVBuilder do
@@ -192,8 +190,8 @@ RSpec.describe ActiveAdmin::CSVBuilder do
 
   context "build csv using the supplied order" do
     before do
-      @post1 = Post.create!(title: "Hello1", published_date: Date.today - 2.day )
-      @post2 = Post.create!(title: "Hello2", published_date: Date.today - 1.day )
+      @post1 = Post.create!(title: "Hello1", published_date: Date.today - 2.day)
+      @post2 = Post.create!(title: "Hello2", published_date: Date.today - 1.day)
     end
     let(:dummy_controller) {
       class DummyController
@@ -236,6 +234,15 @@ RSpec.describe ActiveAdmin::CSVBuilder do
       builder.build dummy_controller, []
     end
 
+    it "should disable the ActiveRecord query cache" do
+      expect(builder).to receive(:build_row).twice do
+        expect(ActiveRecord::Base.connection.query_cache_enabled).to be_falsy
+        []
+      end
+      ActiveRecord::Base.cache do
+        builder.build dummy_controller, []
+      end
+    end
   end
 
   context "build csv using specified encoding and encoding_options" do

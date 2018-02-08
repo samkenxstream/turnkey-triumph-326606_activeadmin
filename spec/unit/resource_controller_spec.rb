@@ -161,7 +161,7 @@ RSpec.describe "A specific resource controller", type: :controller do
     before do
       allow(Post).to receive(:find).and_return(post)
       controller.class_eval { public :resource }
-      allow(controller).to receive(:params).and_return( ActionController::Parameters.new(http_params) )
+      allow(controller).to receive(:params).and_return(ActionController::Parameters.new(http_params))
     end
 
     subject { controller.resource }
@@ -216,7 +216,6 @@ RSpec.describe "A specific resource controller", type: :controller do
       end
     end
   end
-
 
   describe "performing batch_action" do
     let(:batch_action) { ActiveAdmin::BatchAction.new :flag, "Flag", &batch_action_block }

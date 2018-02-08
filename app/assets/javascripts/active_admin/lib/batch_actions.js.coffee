@@ -1,5 +1,4 @@
-$(document).on 'ready page:load turbolinks:load', ->
-
+onDOMReady = ->
   #
   # Use ActiveAdmin.modal_dialog to prompt user if confirmation is required for current Batch Action
   #
@@ -14,7 +13,7 @@ $(document).on 'ready page:load turbolinks:load', ->
 
   $('.batch_actions_selector li a').on 'confirm:complete', (e, inputs)->
     if val = JSON.stringify inputs
-      $('#batch_action_inputs').val val
+      $('#batch_action_inputs').removeAttr('disabled').val val
     else
       $('#batch_action_inputs').attr 'disabled', 'disabled'
 
@@ -37,3 +36,7 @@ $(document).on 'ready page:load turbolinks:load', ->
         $(".batch_actions_selector").each -> $(@).aaDropdownMenu("enable")
       else
         $(".batch_actions_selector").each -> $(@).aaDropdownMenu("disable")
+
+$(document).
+  ready(onDOMReady).
+  on 'page:load turbolinks:load', onDOMReady

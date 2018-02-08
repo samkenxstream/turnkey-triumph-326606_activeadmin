@@ -15,7 +15,7 @@ module ActiveAdmin
       # Attempts to call any known display name methods on the resource.
       # See the setting in `application.rb` for the list of methods and their priority.
       def display_name(resource)
-        render_in_context resource, display_name_method_for(resource) unless resource.nil?
+        sanitize(render_in_context(resource, display_name_method_for(resource)).to_s) unless resource.nil?
       end
 
       # Looks up and caches the first available display name method.
@@ -82,7 +82,7 @@ module ActiveAdmin
       def boolean_attr?(resource, attr, value)
         case value
         when TrueClass, FalseClass
-           true
+          true
         else
           if resource.class.respond_to? :columns_hash
             column = resource.class.columns_hash[attr.to_s] and column.type == :boolean
